@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "archivos.h"
 
 #define PRODUCTOS_POR_LOTE 10
 #define ARCHIVO_PRODUCTOS "producto.txt"
@@ -67,9 +68,11 @@ void producir_productos(void) {
 void consumir_productos(void) {
     FILE *archivo_consumo;
     char linea[50];
+    int exist = 0;
+    exist = existe(ARCHIVO_PRODUCTOS);
 
     archivo_consumo = fopen(ARCHIVO_PRODUCTOS, "r");
-    if (archivo_consumo == NULL) {
+    if (exist == 0) {
         fprintf(stderr, "Error al abrir el archivo para consumo.\n");
         exit(1);
     }

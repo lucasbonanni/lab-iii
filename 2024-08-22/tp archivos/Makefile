@@ -9,7 +9,7 @@ HEADERS= -I ./
 all: clean main
 
 main: main.c
-	$(CC) -o main $(CFILES) $(CFLAGS) $(HEADERS)
+	$(CC) -o main $(CFILES) $(FFILES) $(CFLAGS) $(HEADERS)
 
 clean:
 	rm -rf *o main

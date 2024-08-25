@@ -5,7 +5,7 @@
 
 int existe(char *nombreArchivo);
 void escribir(char *nombreArchivo, char *contenido, char *modo);
-char *leer(char *nombreArchivo, int *size);
+char *leer(char *nombreArchivo, int size);
 void mostrar(char *nombreArchivo);
 void borrar(char *nombreArchivo);
 
