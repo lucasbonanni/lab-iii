@@ -17,7 +17,7 @@ void escribir(char *nombreArchivo, char *contenido, char *modo) {
     fclose(archivo);
 }
 
-char *leer(char *nombreArchivo, int *size) {
+char *leer(char *nombreArchivo, int size) {
     FILE *archivo = fopen(nombreArchivo, "r");
     char *contenido = malloc(size);
     fgets(contenido, size, archivo);
