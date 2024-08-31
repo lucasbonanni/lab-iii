@@ -1,39 +1,77 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int existe(char *nombreArchivo) {
-    FILE *archivo = fopen(nombreArchivo, "r");
-    int existe = 0;
-    if (archivo != NULL) {
-        existe = 1;
+// Puntero de archivo global
+FILE *archivo;
+
+// Función genérica para abrir un archivo
+void abrir_archivo(const char *nombreArchivo, const char *modo) {
+    archivo = fopen(nombreArchivo, modo);
+    if (archivo == NULL) {
+        perror("Error al abrir el archivo");
+        exit(EXIT_FAILURE);
     }
-    fclose(archivo);
-    return existe;
 }
 
-void escribir(char *nombreArchivo, char *contenido, char *modo) {
-    FILE *archivo = fopen(nombreArchivo, modo);
+// Función genérica para cerrar un archivo
+void cerrar_archivo() {
+    if (fclose(archivo) != 0) {
+        perror("Error al cerrar el archivo");
+        exit(EXIT_FAILURE);
+    }
+    archivo = NULL;
+}
+
+// Verifica si un archivo existe
+int existe(const char *nombreArchivo) {
+    abrir_archivo(nombreArchivo, "r");
+    if (archivo != NULL) {
+        cerrar_archivo();
+        return 1;
+    }
+    return 0;
+}
+
+// Escribe contenido en un archivo
+void escribir(const char *nombreArchivo, const char *contenido, const char *modo) {
+    abrir_archivo(nombreArchivo, modo);
     fprintf(archivo, "%s", contenido);
-    fclose(archivo);
+    cerrar_archivo();
 }
 
-char *leer(char *nombreArchivo, int size) {
-    FILE *archivo = fopen(nombreArchivo, "r");
+// Lee contenido de un archivo
+char *leer(const char *nombreArchivo, size_t size) {
+    abrir_archivo(nombreArchivo, "r");
     char *contenido = malloc(size);
-    fgets(contenido, size, archivo);
-    fclose(archivo);
+    if (contenido == NULL) {
+        perror("Error al asignar memoria");
+        cerrar_archivo();
+        exit(EXIT_FAILURE);
+    }
+    if (fgets(contenido, size, archivo) == NULL) {
+        perror("Error al leer el archivo");
+        free(contenido);
+        cerrar_archivo();
+        exit(EXIT_FAILURE);
+    }
+    cerrar_archivo();
     return contenido;
 }
 
-void mostrar(char *nombreArchivo) {
-    FILE *archivo = fopen(nombreArchivo, "r");
+// Muestra el contenido de un archivo
+void mostrar(const char *nombreArchivo) {
+    abrir_archivo(nombreArchivo, "r");
     char linea[1000];
-    while (fgets(linea, 1000, archivo) != NULL) {
+    while (fgets(linea, sizeof(linea), archivo) != NULL) {
         printf("%s", linea);
     }
-    fclose(archivo);
+    cerrar_archivo();
 }
 
-void borrar(char *nombreArchivo) {
-    remove(nombreArchivo);
+// Borra un archivo
+void borrar(const char *nombreArchivo) {
+    if (remove(nombreArchivo) != 0) {
+        perror("Error al borrar el archivo");
+        exit(EXIT_FAILURE);
+    }
 }
