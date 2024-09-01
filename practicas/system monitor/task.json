@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "shell",
+        "command": "gcc",
+        "args": [
+          "-o",
+          "monitor",
+          "main.c",
+          "cpu.c",
+          "memory.c",
+          "-lncurses",
+          "-I/usr/local/opt/ncurses/include",
+          "-L/usr/local/opt/ncurses/lib"
+        ],
+        "group": "build",
+        "problemMatcher": ["$gcc"]
+      }
+    ]
+  }
+  
