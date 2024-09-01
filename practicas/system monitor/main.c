@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <unistd.h>
+#include "cpu.h"
 
 void setup_terminal() {
     initscr();
@@ -17,7 +18,8 @@ int main() {
 
     while (1) {
         clear();
-        mvprintw(1, 1, "CPU Usage: %d%%", 50);  // Dummy value for now
+        float usage = cpu_usage();
+        mvprintw(1, 1, "CPU Usage: %.2f%%", usage);  // Dummy value for now
         refresh();
         usleep(500000);  // 0.5 seconds
     }

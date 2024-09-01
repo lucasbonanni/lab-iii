@@ -1,3 +1,3 @@
 
 monitor:
-	gcc main.c -o monitor -lncurses
+	gcc cpu.c main.c -o monitor -lncurses -I .

@@ -5,7 +5,7 @@
 void cpu_init();
 
 // Function to fetch CPU data
-void cpu_update();
+float cpu_usage();
 
 // Function to clean up resources
 void cpu_cleanup();
