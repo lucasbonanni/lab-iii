@@ -3,11 +3,14 @@
 
 #include <stdio.h>
 
-int existe(char *nombreArchivo);
-void escribir(char *nombreArchivo, char *contenido, char *modo);
-char *leer(char *nombreArchivo, int size);
-void mostrar(char *nombreArchivo);
-void borrar(char *nombreArchivo);
+int crear_archivo(const char *path);
+int borrar_archivo(const char *path);
 
+char *leer_archivo(const char *path);
+int escribir_archivo(const char *path, const char *data);
+int agregar_linea(const char *path, const char *linea);
+
+int remover_linea(const char *path, int numero_linea);
+int insertar_linea(const char *path, const char *linea, int posicion);
 
 #endif
