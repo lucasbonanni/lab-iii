@@ -6,11 +6,14 @@ static FILE *file = NULL;
 
 /* Opens a file in a given mode */
 int file_open(const char *path, const char *mode) {
+    // Check if a file is already open
     if (file != NULL) {
         handle_error("File already open.");
         return -1;
     }
+    // Open the file
     file = fopen(path, mode);
+    // Check if the file was opened successfully
     if (file == NULL) {
         handle_error("File opening failed.");
         return -1;
@@ -20,6 +23,7 @@ int file_open(const char *path, const char *mode) {
 
 /* Closes the currently open file */
 int file_close() {
+    // Check if a file is open
     if (file == NULL) {
         handle_error("No file is currently open.");
         return -1;
@@ -45,20 +49,25 @@ int file_delete(const char *path) {
 
 /* Reads the entire content of a file */
 char *file_read_all(const char *path) {
+    // Open the file in read mode and check if it was opened successfully
+    // If the file could not be opened, return NULL
     if (file_open(path, "r") != 0) {
         return NULL;
     }
-
+    // Get the size of the file and allocate memory for the content
     long size = file_size(path);
+    // If the file size is 0, return an empty string
     char *content = (char *)malloc((size + 1) * sizeof(char));
     
+    // Check if memory allocation was successful
     if (content == NULL) {
         file_close();
         handle_error("Memory allocation failed.");
         return NULL;
     }
-    
+    // Read the content of the file into the allocated memory
     fread(content, sizeof(char), size, file);
+    // Add a null terminator at the end of the content
     content[size] = '\0';
     file_close();
     return content;
@@ -96,10 +105,10 @@ int file_remove_line(const char *path, int line_number) {
         file_close();
         return -1;
     }
-    
+    // Buffer to store each line read from the file
     char buffer[256];
     int current_line = 1;
-    
+    // Read each line from the file and write it to the temporary file
     while (fgets(buffer, sizeof(buffer), file)) {
         if (current_line != line_number) {
             fputs(buffer, temp);
