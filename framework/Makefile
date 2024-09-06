@@ -3,7 +3,7 @@ CFLAGS= -Wall -std=gnu89 -pedantic-errors
 
 FFILES= archivos.c
 
-CFILES= global.c main.c
+CFILES= global.c semaforo.c main.c 
 HEADERS= -I ./
 
 all: clean main
