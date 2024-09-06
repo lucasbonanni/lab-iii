@@ -1,7 +1,7 @@
 #ifndef SEMAFORO_H
 #define SEMAFORO_H
 
-int creo_semaforo();
+int creo_semaforo(void);
 void inicia_semaforo(int id_semaforo, int valor);
 void levanta_semaforo(int id_semaforo);
 void espera_semaforo(int id_semaforo);

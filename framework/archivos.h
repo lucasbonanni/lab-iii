@@ -12,5 +12,7 @@ int agregar_linea(const char *path, const char *linea);
 
 int remover_linea(const char *path, int numero_linea);
 int insertar_linea(const char *path, const char *linea, int posicion);
+void manejar_error(const char *mensaje);
+long tamano_archivo(const char *path);
 
 #endif

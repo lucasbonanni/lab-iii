@@ -1,12 +1,17 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "def.h"
+#include "clave.h"
 
 // funcion que crea el semaforo
-int creo_semaforo()
+int creo_semaforo(void)
 {
-    key_t clave = creo_clave(CLAVE_BASE);
-    int id_semaforo = semget(clave, 1, 0600 | IPC_CREAT);
+    key_t clave = 0;
+    int id_semaforo = 0;
+    clave = creo_clave(CLAVE_BASE);
+    id_semaforo = semget(clave, 1, 0600 | IPC_CREAT);
     if (id_semaforo == -1)
     {
         printf("Error: no puedo crear semaforo\n");
@@ -38,3 +43,4 @@ void espera_semaforo(int id_semaforo)
     operacion.sem_op = -1; // decrementa el semaforo en 1
     operacion.sem_flg = 0;
     semop(id_semaforo, &operacion, 1);
+}

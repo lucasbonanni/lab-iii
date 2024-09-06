@@ -3,6 +3,6 @@
 #define _CLAVE_H
 #include <sys/types.h>
 
-key_t creo_clave(void);
+key_t creo_clave(int clave_base);
 
 #endif
