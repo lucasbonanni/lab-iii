@@ -1,0 +1,7 @@
+Se deben ejecutar primero el proceso panel y luegos los procesos avion. De todos modos, se genero un while en el panel que no permite
+la entrada al while(1) hasta que el archivo "Vuelos.dat" se cree por alguno de los aviones. 
+
+Se agrego la funcion de renombrar archivo para que a medida que el panel lee los vuelos, vaya guardando el historial de los leidos y limpie
+el archivo donde los aviones van registrando de sus llegadas. 
+
+Los datos se generan aleatorios para darle un automatizacion al programa. 

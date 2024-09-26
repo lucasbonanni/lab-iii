@@ -1,3 +1,17 @@
+# Makefile
+
+`make all`
+Hace un clean y compila todo.
+
+`make panel`
+compila solo el panel
+
+`make avion`
+compila solo el avion
+
+`make clean`
+Hace un clean de todo
+
 # Como correr los procesos
 
 ```bash
