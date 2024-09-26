@@ -1,5 +1,7 @@
 #include "archivos.h"
 #include <stdlib.h>
+#include "global.h"
+
 /* cSpell:disable */
 void manejar_error(const char *mensaje);
 
@@ -80,16 +82,12 @@ char *leer_archivo(FILE *file)
     return content;
 }
 
-int escribir_archivo(FILE *file, const char *data)
-{
-    int result = 0;
-    if (file == NULL)
-    {
-        return -1;
+void escribir_archivo(const char *filename, Avion avion) {
+    FILE *file = abrir_archivo(filename, "a");
+    if (file != NULL) {
+        fprintf(file, "Avion %d: %s\n", avion.nro_avion, avion.ciudad);
+        cerrar_archivo(file);
     }
-    result = fputs(data, file);
-    cerrar_archivo(file);
-    return result;
 }
 
 int agregar_linea_archivo(FILE *file, const char *line)
