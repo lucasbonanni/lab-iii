@@ -55,3 +55,9 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+2024-09-26/01-pienso-numero/jugador
+2024-09-26/01-pienso-numero/pienso
+2024-09-26/02-peaje/autos
+2024-09-26/02-peaje/peaje
+2024-09-26/code/lectura
+2024-09-26/code/escritura

@@ -57,7 +57,6 @@ int main(int argc, char *argv[])
 
     srand(time(NULL));
     vias = (int *)creo_memoria(MAX_VIAS, &id_memoria, CLAVE_BASE);
-    // clear the memory values
     memset(vias, 0, sizeof(int) * num_vias);
     id_semaforo = crear_semaforo(CLAVE_BASE);
     inicializar_semaforo(id_semaforo, VERDE);
