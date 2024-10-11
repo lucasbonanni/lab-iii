@@ -2,10 +2,11 @@
 #define _DEF_H
 
 #define ROJO 0
-#define VERDE 
+#define VERDE 1
 
 #define CLAVE_BASE 33
-#define SEMAFORO0 0
+#define SEMAFORO 0
+#define SLEEP_DURATION 500000 /* 500 ms */
 
 #define LARGO_TMENSAJE 1024
 #define INTERVALO_PEDIDOS 2000

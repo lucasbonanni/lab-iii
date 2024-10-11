@@ -5,6 +5,7 @@
 #include "colas.h"
 #include "def.h"
 #include "func.h"
+#include "semaforo.h"
 
 /*Lista de saldos donde el indice es cod_client*/
 int saldos[1000];
@@ -109,19 +110,27 @@ mensaje procesar_evento(int id_cola_mensajes, mensaje msg)
 
 int main(int argc, char *argv[])
 {
-    int id_cola_mensajes;
+    int id_cola_mensajes, id_semaforo;
     mensaje msg;
     mensaje msg_rta;
     id_cola_mensajes = creo_id_cola_mensajes();
+    printf("Cola de mensajes creada con id: %d\n", id_cola_mensajes);
+    id_semaforo = crear_semaforo(CLAVE_BASE);
+    
     while (1)
     {
+        esperar_semaforo(id_semaforo);
         // Esperar por un mensaje
         recibir_mensaje(id_cola_mensajes, &msg);
+        printf("Mensaje recibido: %s\n", msg.char_mensaje);
         // Procesar el mensaje
         msg_rta = procesar_evento(id_cola_mensajes, msg);
         // Enviar respuesta
         enviar_mensaje(id_cola_mensajes, &msg_rta);
-
+        levantar_semaforo(id_semaforo);
+        usleep(SLEEP_DURATION);
         system("clear");
     }
+    borrar_mensajes(id_cola_mensajes);
+    borrar_cola_de_mensajes(id_cola_mensajes);
 }

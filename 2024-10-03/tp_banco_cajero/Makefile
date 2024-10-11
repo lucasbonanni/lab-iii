@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS = -pedantic-errors -Wall -O3 -std=gnu89
 PHEADER = -I ./
-FFILES =  clave.c colas.c func.c
+FFILES =  clave.c colas.c func.c semaforo.c
 
 
 all: clean banco cajero
