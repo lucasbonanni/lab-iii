@@ -1,4 +1,5 @@
 #include <pthread.h>
+#include "hilos.h"
 
 int inicializar_mutex(pthread_mutex_t *mutex)
 {
