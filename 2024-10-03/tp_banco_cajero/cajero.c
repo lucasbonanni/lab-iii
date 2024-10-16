@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
 #include "colas.h"
 #include "def.h"
 #include "func.h"
 #include "semaforo.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #define largo 10
 
@@ -18,14 +18,16 @@ void imprimir_menu(void)
 
 void procesar_evento(mensaje msg)
 {
-    // int i;
-    // char *cadena[largo];
-    // dividir_mensaje(msg.char_mensaje, "|", cadena);
-    // for (i = 0; cadena[i] != NULL; i++) 
-    // {
-    //     printf("Mensaje: %s\n", cadena[i]);
-    // }
-    printf("Mensaje: %s\n", msg.char_mensaje);
+    int i;
+    char *cadena[10];
+    // Split the message
+    dividir_mensaje(msg.char_mensaje, "|", cadena);
+
+    // Print the split messages
+    for (i = 0; cadena[i] != NULL; i++)
+    {
+        printf("%s\n", cadena[i]);
+    }
 }
 
 int main(int argc, char *argv[])
@@ -33,11 +35,12 @@ int main(int argc, char *argv[])
     int id_cola_mensajes, cod_cliente, id_evento, importe, id_semaforo;
     mensaje msg;
     mensaje msg_rta;
+    char *texto_mensaje;
 
     id_cola_mensajes = creo_id_cola_mensajes();
     printf("Cola de mensajes creada con id: %d\n", id_cola_mensajes);
     id_semaforo = crear_semaforo(CLAVE_BASE);
-    inicializar_semaforo(id_semaforo, VERDE);
+
     while (1)
     {
         /*Imprimir menu*/
@@ -53,9 +56,8 @@ int main(int argc, char *argv[])
             printf("Ingrese el codigo de cliente: ");
             scanf("%d", &cod_cliente);
             /* Copiar el cod_cliente al mensaje */
-            snprintf(msg.char_mensaje, sizeof(msg.char_mensaje), "%d", cod_cliente);
-            sscanf(msg.char_mensaje, "%d", &cod_cliente);
-            // printf("Mensaje: %s\n", msg.char_mensaje);
+            texto_mensaje = create_message(cod_cliente, importe, "%d|%d");
+            strcpy(msg.char_mensaje, texto_mensaje);
             break;
         case 2:
             msg.int_evento = EVT_DEPOSITO;
@@ -66,9 +68,8 @@ int main(int argc, char *argv[])
             printf("Ingrese el importe: ");
             scanf("%d", &importe);
             /* Inicializar msg.char_mensaje */
-            snprintf(msg.char_mensaje, sizeof(msg.char_mensaje), "%d|%d", cod_cliente, importe);
-            /* mensaje cod_cliente|importe */
-            sscanf(msg.char_mensaje, "%d|%d", &cod_cliente, &importe);
+            texto_mensaje = create_message(cod_cliente, importe, "%d|%d");
+            strcpy(msg.char_mensaje, texto_mensaje);
             break;
         case 3:
             msg.int_evento = EVT_EXTRACCION;
@@ -80,8 +81,8 @@ int main(int argc, char *argv[])
             scanf("%d", &importe);
             /* mensaje cod_cliente|importe */
             /* Inicializar msg.char_mensaje */
-            snprintf(msg.char_mensaje, sizeof(msg.char_mensaje), "%d|%d", cod_cliente, importe);
-            sscanf(msg.char_mensaje, "%d|%d", &cod_cliente, &importe);
+            texto_mensaje = create_message(cod_cliente, importe, "%d|%d");
+            strcpy(msg.char_mensaje, texto_mensaje);
             break;
         default:
             printf("Opcion incorrecta\n");
@@ -89,8 +90,8 @@ int main(int argc, char *argv[])
         }
         esperar_semaforo(id_semaforo);
         enviar_mensaje(id_cola_mensajes, &msg);
-        usleep(SLEEP_DURATION);
         levantar_semaforo(id_semaforo);
+        usleep(SLEEP_DURATION*10);
         recibir_mensaje(id_cola_mensajes, &msg_rta);
         procesar_evento(msg_rta);
         printf("continuar\n");

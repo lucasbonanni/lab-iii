@@ -22,7 +22,7 @@ int creo_id_cola_mensajes(void)
 int enviar_mensaje(int id_cola, mensaje *msg)
 {
     int resultado;
-    resultado = msgsnd(id_cola, msg, sizeof(msg), 0);
+    resultado = msgsnd(id_cola, msg, sizeof(msg->int_evento) + sizeof(msg->char_mensaje), 0);
     if (resultado == -1)
     {
         perror("Error al enviar el mensaje\n");
@@ -34,7 +34,7 @@ int enviar_mensaje(int id_cola, mensaje *msg)
 int recibir_mensaje(int id_cola, mensaje *msg)
 {
     int resultado;
-    resultado = msgrcv(id_cola, msg, sizeof(msg), 0, 0);
+    resultado = msgrcv(id_cola, msg, sizeof(msg->int_evento) + sizeof(msg->char_mensaje), 0, 0);
     if (resultado == -1)
     {
         perror("Error al recibir el mensaje\n");
