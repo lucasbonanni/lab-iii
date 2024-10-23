@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <pthread.h>
 
 pthread_mutex_t mutex;
 
@@ -30,14 +31,7 @@ void *ThreadJugador(void *params)
     {
         int numero = rand() % 99 + 1;
         /* Verificar si el numero ya fue pensado */
-        for (i = 0; i < *intentos; i++)
-        {
-            if (numeros_pensados[i] == numero)
-            {
-                numero = rand() % 99 + 1;
-                i = -1;
-            }
-        }
+ 
         numeros_pensados[*intentos] = numero;
         usleep(tiempo * 1000);
 
