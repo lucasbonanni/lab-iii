@@ -21,7 +21,6 @@ void *ThreadJugador (void *parametro)
 	int 			cant_jugadores;
 	int 			numero;
 	int 			cant_intentos;
-	int 			i;
 	char 	cadena[50];
 	mensaje		msg;
 	
