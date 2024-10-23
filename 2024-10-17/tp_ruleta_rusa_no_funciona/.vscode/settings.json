@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "clave.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "colas.h": "c"
+    }
+}

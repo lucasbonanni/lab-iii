@@ -93,6 +93,7 @@ int creo_id_cola_mensajes(int clave)
 int enviar_mensaje(int id_cola_mensajes, long rLongDest, int rIntRte, int rIntEvento, char *rpCharMsg)
 {
 	mensaje msg;
+	//printf("[DEBUG] Enviando mensaje a %ld, desde: %d, evento: %d\n", rLongDest, rIntRte, rIntEvento);
 	msg.long_dest = rLongDest;
 	msg.int_rte = rIntRte;
 	msg.int_evento = rIntEvento;
@@ -104,10 +105,9 @@ int recibir_mensaje(int id_cola_mensajes, long rLongDest, mensaje *rMsg)
 {
 	mensaje msg;
 	int res;
-
 	
 	res = msgrcv(id_cola_mensajes, (struct msgbuf *)&msg, sizeof(msg.int_rte) + sizeof(msg.int_evento) + sizeof(msg.char_mensaje), rLongDest, 0); // Recibe el mensaje del jugador que le envio el mensaje y lo guarda en msg
-
+	//printf("[DEBUG] Recibiendo mensaje de %ld, origen: %ld, evento: %d \n", rLongDest, rLongDest, msg.int_evento);
 	rMsg->long_dest = msg.long_dest;
 	rMsg->int_rte = msg.int_rte;
 	rMsg->int_evento = msg.int_evento;
