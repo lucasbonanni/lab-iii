@@ -1,9 +1,12 @@
-#include "colas.h"
-#include "definiciones.h"
-#include "funciones.h"
-#include "global.h"
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include "colas.h"
+#include "definiciones.h"
+#include "global.h"
+
+
 
 int procesar_mensaje(int id_cola_mensajes, mensaje msg, int pasos[], int meta)
 {
@@ -60,12 +63,7 @@ int main(int argc, char *argv[])
 
 	// Send EVT_FIN message to each jugador thread
 	for (i = 0; i < CANT_JUGADORES; i++) {
-    	int result = enviar_mensaje(id_cola_mensajes, MSG_JUGADOR + i, MSG_PISTA, EVT_FIN, 0);
-		// if (result == -1) {
-		// 	perror("Error sending EVT_FIN message");
-		// } else {
-		// 	printf("Sent EVT_FIN to Jugador %d\n", MSG_JUGADOR + i);
-		// }
+    	enviar_mensaje(id_cola_mensajes, MSG_JUGADOR + i, MSG_PISTA, EVT_FIN, 0);
 	}
 
 	usleep(100 * 15000);

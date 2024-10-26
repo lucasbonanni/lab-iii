@@ -1,7 +1,7 @@
 CC= gcc
 CFLAGS= -Wall -std=gnu89 -pedantic-errors 
 
-FFILES= hilos.c funciones.c global.c clave.c colas.c thread_jugador.c
+FFILES= hilos.c global.c clave.c colas.c thread_jugador.c
 PCFILES= pista.c
 JCFILES= jugador.c
 HEADERS= -I ./

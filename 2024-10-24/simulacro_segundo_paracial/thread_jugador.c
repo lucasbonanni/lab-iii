@@ -1,6 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "thread_jugador.h"
 #include "definiciones.h"
-#include "funciones.h"
 #include "global.h"
 #include "hilos.h"
 #include "colas.h"
