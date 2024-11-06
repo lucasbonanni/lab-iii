@@ -9,10 +9,11 @@ RUN apt-get update && \
     make \
     gcc-4.1 \
     libc6-dev \
+    gdb \
+    build-essential \
+    libpthread-stubs0-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    # Create symbolic link for gcc
-    && ln -s /usr/bin/gcc-4.1 /usr/bin/gcc \
     # Verify installation
     && gcc --version
 
