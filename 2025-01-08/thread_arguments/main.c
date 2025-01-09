@@ -32,11 +32,12 @@ struct person {
     char childs[10][50];
 };
 void *print_person(void *arg) {
+    int i;
     struct person *p = (struct person *)arg;
     printf("Name: %s\n", p->name);
     printf("Age: %d\n", p->age);
     printf("Childs: ");
-    for (int i = 0; i < 10; i++) {
+    for (i = 0; i < 10; i++) {
         if (p->childs[i][0] == '\0') {
             break;
         }
